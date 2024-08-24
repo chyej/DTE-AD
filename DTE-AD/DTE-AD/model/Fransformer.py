@@ -6,7 +6,6 @@ from .decomposition import *
 class t_EncoderLayer(nn.Module):
     def __init__(self, attention, d_model, d_ff=None, dropout=0.1, activation="relu"):
         super(t_EncoderLayer, self).__init__()
-        # attn대신 fourier 하기 때문에 d_model=window_size
         d_ff = d_ff or 4 * d_model
         self.attention = attention
         self.norm1 = nn.LayerNorm(d_model)
@@ -108,7 +107,6 @@ class DTE_AD(nn.Module):
         self.revin = RevIN(feats, affine=True, subtract_last=False)
         self.decomp = series_decomp(kernel_size=3)
         self.embedding = DataEmbedding(c_in=feats, d_model=d_model, dropout=0.0)
-        # 하나의 임베딩을 사용함으로써 Trend와 residual 사이의 내재된 관계를 더 잘 학습할 수 있음
         self.t_attn = multiheadattention(d_model, n_heads)
         self.time_encoder = t_TransformerEncoder(self.t_attn, d_model, n_heads, d_ff, n_layers)
         self.freq_encoder = f_TransformerEncoder(d_model, n_heads, d_ff, n_layers)
@@ -119,21 +117,18 @@ class DTE_AD(nn.Module):
         self.decoder = nn.Linear(d_hid, feats)
 
     def forward(self, x):
-        # 누락된 값 채움
         mask_en = create_missing_value_mask(x)
-        # RevIN normalization (input과 output 사이 scale 또는 shift 방지)
+        # RevIN normalization 
         x = self.revin(x, 'norm')
-        # decomposition (시계열 분해 -> trend, residual)
+        # decomposition 
         res, trend = self.decomp(x)
 
-        # 각각 임베딩
         em_t = self.embedding(trend) # time domain input
         em_r = self.embedding(res)  # freq domain input
         # time domain encoder, frequency domain encoder
         z_time, time_attn = self.time_encoder(em_t, mask_en) # [batch, win_len, d_model]
         z_freq = self.freq_encoder(em_r) # [batch, win_len, d_model]
 
-        # co-attention (z_time, z_freq 관계)
         co_attn1, t_attn = self.co_attn_t(z_time, z_freq, z_freq) # [batch, win_len, d_model]
         co_attn2, f_attn = self.co_attn_f(z_freq, z_time, z_time)
         #print(f't_attn = {t_attn}\n')
@@ -141,14 +136,13 @@ class DTE_AD(nn.Module):
         t_attn = self.co_feed1(t_attn)
         f_attn = self.co_feed2(f_attn)
 
-        ### co_attn1과 co_attn2 합치는 방법 실험들
-        # 1. concatenation
+        # concatenation
         co_attn = torch.cat([co_attn1, co_attn2], dim=-1)
 
         # reconstruction decoder
         x_reconstructed = self.decoder(co_attn)
 
-        # RevIN de-normalization (input의 non-stationary 정보를 output에 전달하기 위함)
+        # RevIN de-normalization 
         y = self.revin(x_reconstructed, 'denorm')
 
         return y, time_attn, t_attn, f_attn
