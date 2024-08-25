@@ -12,7 +12,6 @@ from solver import Solver
 def str2bool(v):
     return v.lower() in ('true')
 
-
 def main(config):
     cudnn.benchmark = True
     if (not os.path.exists(config.model_save_path)):
@@ -25,7 +24,6 @@ def main(config):
         solver.test()
 
     return solver
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
