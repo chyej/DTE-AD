@@ -4,16 +4,13 @@ import torch.nn.functional as F
 
 
 def create_missing_value_mask(data):
-    # 누락된 값 처리
     '''
     :param data: [batch_size, seq_len, feature_dim]
     :return: [batch_size, 1, seq_len]
     '''
     # NaN-True
     mask = torch.isnan(data)
-    # 특정 feature에서 NaN값을 가지는 경우를 감지하기 위해 모든 feature에 대해 any 연산 수행
     mask = mask.any(dim=-1, keepdim=True)
-    # NaN 값 위치는 0, 나머지는 1
     return (~mask).float()
 
 def get_attn_decoder_mask(seq):
