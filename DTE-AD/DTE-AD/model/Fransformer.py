@@ -48,7 +48,6 @@ class f_EncoderLayer(nn.Module):
         return output
 
 
-
 # Transformer Encoder
 class t_TransformerEncoder(nn.Module):
     def __init__(self, attention, d_model, nhead, d_ff, num_layers):
@@ -61,7 +60,6 @@ class t_TransformerEncoder(nn.Module):
             x, time_attn = self.encoder_layer(x, mask)
             time_attention.append(time_attn)
         return x, time_attention
-
 
 
 class f_TransformerEncoder(nn.Module):
