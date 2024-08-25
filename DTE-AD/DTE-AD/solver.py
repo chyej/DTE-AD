@@ -40,7 +40,6 @@ class Solver(object):
         self.criterion = nn.MSELoss(reduction = 'mean')
         self.path = self.model_save_path + experiment
 
-        # pot_eval에서 쓰이는 값 (percentile, ret)
         lm_d = {
         'SMD': [(0.984, 1.04), (0.99995, 1.06)],
         'SWaT': [(1.1, 1), (0.993, 1)],
@@ -156,7 +155,6 @@ class Solver(object):
         print("======================TEST MODE======================")
 
         criterion = nn.MSELoss(reduce=False)
-        # loss 계산할 때 각 데이터 포인트에 대한 손실을 개별적으로 반환하도록함 (anomaly score == reconstruction error)
 
         # (1) stastic on the train set
         #train_energy = []
@@ -276,7 +274,6 @@ class Solver(object):
         attens_energy = np.concatenate(test_attn, axis=0)
         attens_energy = attens_energy.reshape(-1, self.input_c)
 
-
         # test-set reconstruction results
         recon_test = np.concatenate(recon_test, axis=0)
         recon_test = recon_test.reshape(-1, self.input_c)
@@ -292,7 +289,6 @@ class Solver(object):
         preds = []
         thresh = []
 
-        # 데이터의 각 변수마다 결과 도출
         for i in range(self.input_c):
             lt, l, ls = train_energy[:, i], attens_energy[:, i], test_labels[:, i]
             result, pred, thres = pot_eval(lt, l, ls, self.lm)
@@ -300,10 +296,9 @@ class Solver(object):
             thresh.append(thres)
             df = df.append(result, ignore_index=True)
 
-        # reconstruction 결과(test data, reconstructed data), detection 결과(anomaly score, threshold)
+        # reconstruction (test data, reconstructed data), detection (anomaly score, threshold)
         plotter_o(f'{self.dataset}', self.ori_test, recon_test, attens_energy, test_labels, thresh)
 
-        # 변수별 결과의 평균 도출
         lossTfinal, lossFinal = np.mean(train_energy, axis=1), np.mean(attens_energy, axis=1)
         labelsFinal = (np.sum(test_labels, axis=1) >= 1) + 0
         result, _, _ = pot_eval(lossTfinal, lossFinal, labelsFinal, self.lm)
