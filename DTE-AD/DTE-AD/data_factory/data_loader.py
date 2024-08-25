@@ -347,7 +347,6 @@ def get_loader_segment(data_path, batch_size, win_size, mode='train', dataset='K
         plot_train = dataset.train
         plot_test = dataset.test
 
-
     shuffle = False
     if mode == 'train':
         shuffle = True
