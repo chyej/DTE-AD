@@ -12,7 +12,7 @@ class RevIN(nn.Module):
         self.num_features = num_features
         self.eps = eps
         self.affine = affine
-        self.subtract_last = subtract_last # True이면 마지막 값 뺌
+        self.subtract_last = subtract_last 
         if self.affine:
             self._init_params()
 
@@ -31,7 +31,6 @@ class RevIN(nn.Module):
         self.affine_bias = nn.Parameter(torch.zeros(self.num_features))
 
     def _get_statistics(self, x):
-        # 평균, 표준 편차 계산 (정규화, 역정규화에 사용)
         dim2reduce = tuple(range(1, x.ndim-1))
         if self.subtract_last:
             self.last = x[:,-1,:].unsqueeze(1)
@@ -40,20 +39,17 @@ class RevIN(nn.Module):
         self.stdev = torch.sqrt(torch.var(x, dim=dim2reduce, keepdim=True, unbiased=False) + self.eps).detach()
 
     def _normalize(self, x):
-        # 평균 빼고 표준 편차로 나눔
         if self.subtract_last:
             x = x - self.last
         else:
             x = x - self.mean
         x = x / self.stdev
         if self.affine:
-            # 스케일링, 시프팅
             x = x * self.affine_weight
             x = x + self.affine_bias
         return x
 
     def _denormalize(self, x):
-        # 텐서 원래 상태로 역정규화
         if self.affine:
             x = x - self.affine_bias
             x = x / (self.affine_weight + self.eps*self.eps)
@@ -63,11 +59,6 @@ class RevIN(nn.Module):
         else:
             x = x + self.mean
         return x
-
-
-
-
-
 
 class moving_avg(nn.Module):
     """
