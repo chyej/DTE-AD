@@ -67,6 +67,6 @@ Sliding windows of size 100 were used, with a stride of 1 for training/validatio
 SMD -> https://github.com/NetManAIOps/OmniAnomaly
 SWaT -> https://itrust.sutd.edu.sg/itrust-labs_datasets/dataset_info/#swat
 PSM -> https://github.com/eBay/RANSynCoders/tree/main/data
-MSL -> DTE-AD/DTE-AD/dataset
-SMAP -> DTE-AD/DTE-AD/dataset
-MSDS -> DTE-AD/DTE-AD/dataset
+MSL -> DTE-AD/DTE-AD/dataset (https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/Mars/Mars.html)
+SMAP -> DTE-AD/DTE-AD/dataset (https://nsidc.org/data/smap/data)
+MSDS -> DTE-AD/DTE-AD/dataset (https://zenodo.org/records/3549604)
