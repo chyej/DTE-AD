@@ -1,13 +1,8 @@
-Each data set creates a file named "Dataset.sh" (e.g. SMD.sh) in the Scripts folder.
+# DTE-AD: Dual-domain Transformer Encoder for Multivariate Time-Series Anomaly Detection
+
+Official PyTorch implementation of the paper:
+> "Dual-domain Transformer Encoder with Co-Attention for Multivariate Time-Series Anomaly Detection"
+
+This repository provides the full implementation, datasets preprocessing scripts, and evaluation methods used in our experiments.
 
 
-
-example) 
-
-"SMD.sh" 
-
-  export CUDA_VISIBLE_DEVICES=0
-
-  python main.py --anormly_ratio 0.5 --num_epochs 50   --batch_size 256  --mode train --dataset machine-1-1  --data_path dataset/SMD   --input_c 38
-  
-  python main.py --anormly_ratio 0.5 --num_epochs 50   --batch_size 256     --mode test    --dataset machine-1-1   --data_path dataset/SMD     --input_c 38     --pretrained_model 20
