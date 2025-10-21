@@ -64,4 +64,9 @@ SMD, SWaT, PSM, MSL, SMAP, MSDS
 Preprocessed data should be placed in ./data/ following each dataset’s folder name.
 Sliding windows of size 100 were used, with a stride of 1 for training/validation and non-overlapping windows for testing.
 
-
+SMD -> https://github.com/NetManAIOps/OmniAnomaly
+SWaT ->
+PSM ->
+MSL ->
+SMAP ->
+MSDS -> 
