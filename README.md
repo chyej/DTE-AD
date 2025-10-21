@@ -59,14 +59,34 @@ python main.py --anormly_ratio 0.09 --num_epochs 50   --batch_size 256     --mod
 
 
 
-<Dataset>
-SMD, SWaT, PSM, MSL, SMAP, MSDS
-Preprocessed data should be placed in ./data/ following each dataset’s folder name.
-Sliding windows of size 100 were used, with a stride of 1 for training/validation and non-overlapping windows for testing.
+<Dataset Details>
+All datasets used in this study are **publicly available**, and no proprietary or private data were used.  
+Each dataset can be directly downloaded from the sources listed below, and the preprocessed `.npy` or `.csv` files can be reproduced by following the data loader implementations in `data_factory/data_loader.py`.  
+The same random seed (42) and windowing configuration were used across all datasets to ensure reproducibility.
 
-SMD -> https://github.com/NetManAIOps/OmniAnomaly
-SWaT -> https://itrust.sutd.edu.sg/itrust-labs_datasets/dataset_info/#swat
-PSM -> https://github.com/eBay/RANSynCoders/tree/main/data
-MSL -> DTE-AD/DTE-AD/dataset (https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/Mars/Mars.html)
-SMAP -> DTE-AD/DTE-AD/dataset (https://nsidc.org/data/smap/data)
-MSDS -> DTE-AD/DTE-AD/dataset (https://zenodo.org/records/3549604)
+---
+
+<Datasets>
+Preprocessed data should be placed in `./data/` following each dataset’s folder name.  
+Sliding windows of size **100** were used, with a stride of **1** for training/validation and non-overlapping windows for testing.
+
+| Dataset | Source |
+|---------|--------|
+|   SMD   | [OmniAnomaly (GitHub)](https://github.com/NetManAIOps/OmniAnomaly) |
+|   SWaT  | [iTrust SWaT Dataset](https://itrust.sutd.edu.sg/itrust-labs_datasets/dataset_info/#swat) |
+|   MSDS  | [Zenodo Repository](https://zenodo.org/records/3549604) |
+|   PSM   | [eBay RANSynCoders](https://github.com/eBay/RANSynCoders/tree/main/data) |
+|   MSL   | [Mars Dataset (NASA PDS)](https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/Mars/Mars.html) |
+|   SMAP  | [NASA SMAP Dataset (NSIDC)](https://nsidc.org/data/smap/data) |
+
+---
+
+<Dataset Statistics>
+|    Dataset (Application)  |   Dimension (Traces)   |   Training Set   |   Test Set    |   Anomalies (%)   |
+|---------------------------|------------------------|------------------|---------------|-------------------|
+| SMD (Server)              | 38 (28)                | 708,405          | 708,420       | 4.16              |
+| SWaT (Water)              | 51 (1)                 | 496,800          | 449,919       | 11.98             |
+| MSDS (Server)             | 10 (1)                 | 146,430          | 146,430       | 5.37              |
+| PSM (Server)              | 25 (1)                 | 132,481          | 87,841        | 27.81             |
+| MSL (Space)               | 55 (3)                 | 58,317           | 73,729        | 10.72             |
+| SMAP (Space)              | 25 (55)                | 135,183          | 427,617       | 13.13             |
