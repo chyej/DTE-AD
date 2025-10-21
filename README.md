@@ -68,7 +68,7 @@ The same random seed (42) and windowing configuration were used across all datas
 
 <Datasets>
 Preprocessed data should be placed in `./data/` following each dataset’s folder name.  
-Sliding windows of size **100** were used, with a stride of **1** for training/validation and non-overlapping windows for testing.
+Sliding windows of size 100 were used, with a stride of 1 for training/validation and non-overlapping windows for testing.
 
 | Dataset | Source |
 |---------|--------|
