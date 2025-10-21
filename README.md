@@ -68,5 +68,5 @@ SMD -> https://github.com/NetManAIOps/OmniAnomaly
 SWaT -> https://itrust.sutd.edu.sg/itrust-labs_datasets/dataset_info/#swat
 PSM ->
 MSL ->
-SMAP ->
+SMAP -> DTE-AD/DTE-AD/dataset
 MSDS -> 
