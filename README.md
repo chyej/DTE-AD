@@ -66,7 +66,7 @@ Sliding windows of size 100 were used, with a stride of 1 for training/validatio
 
 SMD -> https://github.com/NetManAIOps/OmniAnomaly
 SWaT -> https://itrust.sutd.edu.sg/itrust-labs_datasets/dataset_info/#swat
-PSM ->
-MSL ->
+PSM -> https://github.com/eBay/RANSynCoders/tree/main/data
+MSL -> DTE-AD/DTE-AD/dataset
 SMAP -> DTE-AD/DTE-AD/dataset
 MSDS -> 
