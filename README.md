@@ -65,7 +65,7 @@ Preprocessed data should be placed in ./data/ following each dataset’s folder 
 Sliding windows of size 100 were used, with a stride of 1 for training/validation and non-overlapping windows for testing.
 
 SMD -> https://github.com/NetManAIOps/OmniAnomaly
-SWaT ->
+SWaT -> https://itrust.sutd.edu.sg/itrust-labs_datasets/dataset_info/#swat
 PSM ->
 MSL ->
 SMAP ->
