@@ -7,7 +7,7 @@ This repository provides the full implementation, datasets preprocessing scripts
 
 
 
-<Environment Setup>
+##<Environment Setup>
 ```bash
 # Python environment
 python >= 3.8
@@ -18,7 +18,8 @@ pip install -r requirements.txt
 
 
 
-<Repository Structure>
+
+##<Repository Structure>
 DTE-AD/DTE-AD
 │── main.py                 # Entry point for training and evaluation
 │── solver.py               # Model training and evaluation pipeline
@@ -48,7 +49,7 @@ DTE-AD/DTE-AD
 
 
 
-<Train and Evaluate>
+##<Train and Evaluate>
 # Example: Run on SWaT dataset
 bash scripts/SWaT.sh
 # Example: Run on ALL dataset
@@ -58,7 +59,7 @@ python main.py --anormly_ratio 0.09 --num_epochs 50   --batch_size 256     --mod
 
 
 
-<Dataset>
+##<Dataset>
 SMD, SWaT, PSM, MSL, SMAP, MSDS
 Preprocessed data should be placed in ./data/ following each dataset’s folder name.
 Sliding windows of size 100 were used, with a stride of 1 for training/validation and non-overlapping windows for testing.
