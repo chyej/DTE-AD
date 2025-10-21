@@ -13,14 +13,13 @@ This repository provides the full implementation, datasets preprocessing scripts
 python >= 3.8
 torch >= 1.10
 numpy, pandas, scikit-learn, matplotlib
-
 # Install all dependencies
 pip install -r requirements.txt
 
 
 
 <Repository Structure>
-DTE-AD/
+DTE-AD/DTE-AD
 │── main.py                 # Entry point for training and evaluation
 │── solver.py               # Model training and evaluation pipeline
 │── parameter_num.py        # Parameter counting and model complexity analysis
