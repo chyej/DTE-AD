@@ -41,15 +41,12 @@ class Solver(object):
         self.path = self.model_save_path + experiment
 
         lm_d = {
-        'SMD': [(0.984, 1.04), (0.99995, 1.06)],
         'SWaT': [(1.1, 1), (0.993, 1)],
         'SMAP': [(2.6, 1), (0.976, 1)],#0.977
-        'MSL': [(1.28, 1), (0.999, 1.04)],
-        'PSM': [(3.5, 1.04), (0.961, 1)],
-        'MSDS': [(6.1, 1), (0.9, 1.04)]}
+        'MSL': [(1.28, 1), (0.999, 1.04)]}
   
         if 'machine' in self.dataset:
-            self.lm = lm_d['SMD'][0]
+            self.lm = lm_d['SMAP'][0]
         else:
             self.lm = lm_d[self.dataset][0]
 
