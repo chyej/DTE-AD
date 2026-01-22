@@ -45,10 +45,7 @@ class Solver(object):
         'SMAP': [(2.6, 1), (0.976, 1)],#0.977
         'MSL': [(1.28, 1), (0.999, 1.04)]}
   
-        if 'machine' in self.dataset:
-            self.lm = lm_d['SMAP'][0]
-        else:
-            self.lm = lm_d[self.dataset][0]
+        self.lm = lm_d[self.dataset][0]
 
 
     def build_model(self):
