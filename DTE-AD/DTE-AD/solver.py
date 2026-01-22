@@ -66,13 +66,6 @@ class Solver(object):
             loss = self.criterion(output, input)
             loss_v.append((loss).item())
 
-
-            #val_loss = [loss_item * attn for loss_item, attn in zip(loss_v, time_attn)]
-            #val_loss_np = [item.detach().cpu().numpy() if isinstance(item, torch.Tensor) else item for item in val_loss]
-
-
-            #np.average(loss_v) -> original
-            #torch.mean(val_loss)
         return np.average(loss_v), self.optimizer.param_groups[0]['lr']
 
     def train(self):
@@ -118,16 +111,7 @@ class Solver(object):
             train_loss = np.average(loss_list) # -> original
             loss_tensor = torch.tensor(loss_list)
 
-            #print(f"loss_tensor = {loss_tensor.shape}\ntime_attn = P{time_attn.shape}")
-            #attn_loss = [loss_item * attn for loss_item, attn in zip(loss_list, time_attn)]
-            #attn_loss_np = [item.detach().cpu().numpy() if isinstance(item, torch.Tensor) else item for item in attn_loss]
-            #train_loss = torch.mean(attn_loss)
-            #train_loss = np.average(attn_loss_np)
-            #train_loss = loss_tensor * time_attn
-
-
             vali_loss, lr = self.vali(self.vali_loader)
-            #ls = vali_loss.detach().cpu().numpy()
             accuracy_list.append((vali_loss, lr))
 
             print("Epoch: {0}, Steps: {1} | Train Loss: {2:.7f} Vali Loss: {3:.7f} ".format(
@@ -170,49 +154,11 @@ class Solver(object):
             #print(f'loss_item len = {len(train_energy)}\ntime_attn len = {len(time_attn)}')
             #print(f'loss_item = {train_energy[0].shape}\ntime_attn = {time_attn[0].shape}')
 
-
-            '''for n in range(len(time_attn)):
-                #time_e = time_attn[n].detach().cpu().numpy()
-                time_loss += time_attn[n]
-                
-
-            time_loss = time_loss / len(time_attn)'''
-            
-
-            #t_loss = torch.mean(torch.sum(time_loss, dim=-1), dim=1)
-            #time_loss_a = t_loss.unsqueeze(-1)
-            #time_loss_a = time_loss_a.detach().cpu().numpy()
-            '''
-            t_loss = torch.mean(torch.sum(t_attn, dim=-1), dim=1)
-            time_loss_a = t_loss.unsqueeze(-1)
-            time_loss_a = time_loss_a.detach().cpu().numpy()
-            
-            f_loss = torch.mean(torch.sum(t_attn, dim=-1), dim=1)
-            freq_loss_a = f_loss.unsqueeze(-1)
-            freq_loss_a = freq_loss_a.detach().cpu().numpy()
-            
-
-            #print(f'loss_item = {loss.shape}\ntime_loss_a = {time_loss_a.shape}')
-
-            train_loss = loss * (0.5 * time_loss_a + 0.5 * freq_loss_a)
-
-            train_attn.append(train_loss)'''
-
-        #train_loss_t = [loss_item * attn.detach().cpu().numpy() for loss_item, attn in zip(train_energy, time_attn)]
-
-        #train_loss_a = np.average(train_loss_t)
-
         train_energy = np.concatenate(train_attn, axis=0)
         train_energy = train_energy.reshape(-1, self.input_c)
 
-        #train_energy = np.concatenate(train_energy, axis=0)
-        #train_energy = train_energy.reshape(-1, self.input_c)
-
-        #print(f'train_energy = {train_energy.shape}')
-
         # (2) evaluation on the test set
         test_labels = []
-        #test_energy = []
         test_attn = []
         recon_test = []
         for i, (input_data, labels) in enumerate(self.test_loader):
@@ -229,11 +175,6 @@ class Solver(object):
 
             time_loss = 0.0
             feat = loss.shape[2]
-
-            '''for n in range(len(time_attn)):
-                time_loss += time_attn[n]
-
-            time_loss = time_loss / len(time_attn)'''
 
             t_attn_ = torch.where(t_attn > 0, t_attn, torch.tensor(1e-9).to(self.device))
 
@@ -290,7 +231,6 @@ class Solver(object):
             thresh.append(thres)
             df = df.append(result, ignore_index=True)
 
-        # reconstruction (test data, reconstructed data), detection (anomaly score, threshold)
         plotter_o(f'{self.dataset}', self.ori_test, recon_test, attens_energy, test_labels, thresh)
 
         lossTfinal, lossFinal = np.mean(train_energy, axis=1), np.mean(attens_energy, axis=1)
