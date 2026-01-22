@@ -72,10 +72,7 @@ Sliding windows of size 100 were used, with a stride of 1 for training/validatio
 
 | Dataset | Source |
 |---------|--------|
-|   SMD   | [OmniAnomaly (GitHub)](https://github.com/NetManAIOps/OmniAnomaly) |
 |   SWaT  | [iTrust SWaT Dataset](https://itrust.sutd.edu.sg/itrust-labs_datasets/dataset_info/#swat) |
-|   MSDS  | [Zenodo Repository](https://zenodo.org/records/3549604) |
-|   PSM   | [eBay RANSynCoders](https://github.com/eBay/RANSynCoders/tree/main/data) |
 |   MSL   | [Mars Dataset (NASA PDS)](https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/Mars/Mars.html) |
 |   SMAP  | [NASA SMAP Dataset (NSIDC)](https://nsidc.org/data/smap/data) |
 
@@ -84,9 +81,6 @@ Sliding windows of size 100 were used, with a stride of 1 for training/validatio
 <Dataset Statistics>
 |    Dataset (Application)  |   Dimension (Traces)   |   Training Set   |   Test Set    |   Anomalies (%)   |
 |---------------------------|------------------------|------------------|---------------|-------------------|
-| SMD (Server)              | 38 (28)                | 708,405          | 708,420       | 4.16              |
 | SWaT (Water)              | 51 (1)                 | 496,800          | 449,919       | 11.98             |
-| MSDS (Server)             | 10 (1)                 | 146,430          | 146,430       | 5.37              |
-| PSM (Server)              | 25 (1)                 | 132,481          | 87,841        | 27.81             |
 | MSL (Space)               | 55 (3)                 | 58,317           | 73,729        | 10.72             |
 | SMAP (Space)              | 25 (55)                | 135,183          | 427,617       | 13.13             |
