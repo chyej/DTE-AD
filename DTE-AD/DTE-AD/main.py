@@ -4,10 +4,6 @@ from torch.backends import cudnn
 from utils.utils import *
 
 from solver import Solver
-#from solver_USAD import Solver
-#from solver_TranAD import Solver
-#from solver_DAGMM import Solver
-#from solver_AnomalyTransformer import Solver
 
 def str2bool(v):
     return v.lower() in ('true')
