@@ -116,21 +116,23 @@ class DTE_AD(nn.Module):
 
     def forward(self, x):
         mask_en = create_missing_value_mask(x)
+        
         # RevIN normalization 
         x = self.revin(x, 'norm')
+        
         # decomposition 
         res, trend = self.decomp(x)
 
         em_t = self.embedding(trend) # time domain input
         em_r = self.embedding(res)  # freq domain input
+        
         # time domain encoder, frequency domain encoder
         z_time, time_attn = self.time_encoder(em_t, mask_en) # [batch, win_len, d_model]
         z_freq = self.freq_encoder(em_r) # [batch, win_len, d_model]
 
         co_attn1, t_attn = self.co_attn_t(z_time, z_freq, z_freq) # [batch, win_len, d_model]
         co_attn2, f_attn = self.co_attn_f(z_freq, z_time, z_time)
-        #print(f't_attn = {t_attn}\n')
-        #print(f'f_attn = {f_attn}\n')
+
         t_attn = self.co_feed1(t_attn)
         f_attn = self.co_feed2(f_attn)
 
